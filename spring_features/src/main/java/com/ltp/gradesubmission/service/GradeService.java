@@ -1,9 +1,8 @@
 package com.ltp.gradesubmission.service;
 
-import com.ltp.gradesubmission.entity.Grade;
-import jakarta.validation.Valid;
-
 import java.util.List;
+
+import com.ltp.gradesubmission.entity.Grade;
 
 public interface GradeService {
     Grade getGrade(Long studentId, Long courseId);
@@ -13,7 +12,4 @@ public interface GradeService {
     List<Grade> getStudentGrades(Long studentId);
     List<Grade> getCourseGrades(Long courseId);
     List<Grade> getAllGrades();
-    Grade getGradeById(String gradeId);
-
-    void submitForm(com.ltp.gradesubmission.pojo.@Valid Grade grade);
 }

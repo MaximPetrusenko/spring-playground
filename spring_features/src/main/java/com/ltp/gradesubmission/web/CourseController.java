@@ -2,12 +2,15 @@ package com.ltp.gradesubmission.web;
 
 import com.ltp.gradesubmission.entity.Course;
 import com.ltp.gradesubmission.service.CourseService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -20,7 +23,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
+    public ResponseEntity<Course> saveCourse(@Valid @RequestBody Course course) {
         return new ResponseEntity<>(courseService.saveCourse(course), HttpStatus.CREATED);
     }
 

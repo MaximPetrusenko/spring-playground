@@ -2,6 +2,7 @@ package com.ltp.gradesubmission.web;
 
 import com.ltp.gradesubmission.entity.Student;
 import com.ltp.gradesubmission.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +16,14 @@ import java.util.List;
 public class StudentController {
 
     StudentService studentService;
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable Long id) {
         return new ResponseEntity<>(studentService.getStudent(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> saveStudent(@Valid @RequestBody Student student) {
         return new ResponseEntity<>(studentService.saveStudent(student), HttpStatus.CREATED);
     }
 

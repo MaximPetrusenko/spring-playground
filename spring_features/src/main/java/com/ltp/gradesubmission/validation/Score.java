@@ -11,10 +11,12 @@ import jakarta.validation.Payload;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ScoreValidator.class)
+
 public @interface Score {
 
-    String message() default "Invalid Data";
-	Class<?>[] groups() default {};
+    String message() default "The score is not valid";
+    Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
 }
+    

@@ -1,10 +1,10 @@
 package com.ltp.gradesubmission.validation;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
-
 import java.util.Arrays;
 import java.util.List;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class ScoreValidator implements ConstraintValidator<Score, String> {
     
@@ -15,8 +15,10 @@ public class ScoreValidator implements ConstraintValidator<Score, String> {
         "D+", "D", "D-",
         "F"
     );
+    
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null) return false;
         for (String string : scores) {
             if (value.equals(string)) return true;
         }

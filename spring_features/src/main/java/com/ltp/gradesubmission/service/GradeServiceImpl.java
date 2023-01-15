@@ -1,5 +1,7 @@
 package com.ltp.gradesubmission.service;
 
+import java.util.List;
+
 import com.ltp.gradesubmission.entity.Course;
 import com.ltp.gradesubmission.entity.Grade;
 import com.ltp.gradesubmission.entity.Student;
@@ -7,30 +9,29 @@ import com.ltp.gradesubmission.exception.GradeNotFoundException;
 import com.ltp.gradesubmission.repository.CourseRepository;
 import com.ltp.gradesubmission.repository.GradeRepository;
 import com.ltp.gradesubmission.repository.StudentRepository;
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.Optional;
+
+import lombok.AllArgsConstructor;
+
+import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
 public class GradeServiceImpl implements GradeService {
-
+    
     GradeRepository gradeRepository;
     StudentRepository studentRepository;
-
     CourseRepository courseRepository;
 
+    
     @Override
     public Grade getGrade(Long studentId, Long courseId) {
-        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        if(grade.isPresent()){
+         Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+         if (grade.isPresent()) {
             return grade.get();
-        }else {
+         } else {
             throw new GradeNotFoundException(studentId, courseId);
-        }
+         }
     }
 
     @Override
@@ -45,45 +46,33 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public Grade updateGrade(String score, Long studentId, Long courseId) {
         Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        if(grade.isPresent()){
+        if (grade.isPresent()) {
             Grade unwrappedGrade = grade.get();
             unwrappedGrade.setScore(score);
-             return gradeRepository.save(unwrappedGrade);
-
-        }else {
+            return gradeRepository.save(unwrappedGrade);
+         } else {
             throw new GradeNotFoundException(studentId, courseId);
-        }
-
+         }
     }
 
     @Override
     public void deleteGrade(Long studentId, Long courseId) {
-        
+        gradeRepository.deleteByStudentIdAndCourseId(studentId, courseId);
     }
 
     @Override
     public List<Grade> getStudentGrades(Long studentId) {
-        return null;
+        return gradeRepository.findByStudentId(studentId);
     }
 
     @Override
     public List<Grade> getCourseGrades(Long courseId) {
-        return null;
+        return gradeRepository.findByCourseId(courseId);
     }
 
     @Override
     public List<Grade> getAllGrades() {
-        return null;
-    }
-
-    @Override
-    public Grade getGradeById(String gradeId) {
-        return null;
-    }
-
-    @Override
-    public void submitForm(com.ltp.gradesubmission.pojo.@Valid Grade grade) {
-
+        return (List<Grade>) gradeRepository.findAll();
     }
 
 }
