@@ -8,9 +8,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -35,5 +35,9 @@ public class Student {
     @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Grade> grades;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "students")
+    private Set<Course> courses;
 
 }
